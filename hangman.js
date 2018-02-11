@@ -6,7 +6,6 @@ function composerList(name, yearsLived, piece, performer) {
     composer.performer = performer;
 }
 var composers = [
-    { "BACH", "1685-1750", "Concerto in D Minor for Two Violins, Second Movement", "Jascha Heifetz, Violin"},
     { "RACHMANINOFF", "1873-1943", "Piano Concerto No. 2 Op. 18", "Arthur Rubinstein, Piano"},
     { "WAGNER", "1813-1883", "Ride of the Valkyries - Ring", "Berlin Philharmonic Orchestra, Herbert von Karajan, Conductor"},
     { "SCHUBERT", "1797-1828", "Impromptu Op. 90 No. 3", "Alfred Brendel, Piano"},
