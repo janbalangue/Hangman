@@ -167,7 +167,7 @@ while (wantsToPlay) {
             } else if (numberOfGuesses === 0) {
                 losses++;
                 document.getElementById("loss-counter").innerHTML = losses;
-                alert("You ran out of guesses.");
+                alert("Sorry, you ran out of guesses.");
                 wantsToPlay = playAgain();
             }
         }
