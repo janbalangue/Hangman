@@ -15,6 +15,12 @@ var composers = [
 // correct = the letter is picked and is part of the solution
 // wrong = the letter is picked and is not part of the solution
 
+
+
+// play game at least once
+var wantsToPlay = true;
+var wins = 0;
+var losses = 0;
 var alphabet = {
     a: "unselected",
     b: "unselected",
@@ -43,36 +49,35 @@ var alphabet = {
     y: "unselected",
     z: "unselected"
 };
+var isSolved;
+var numberOfGuesses;
+var randomComposerIndex;
+var puzzleAnswer;
+var keyCommand = "";
+var answerSoFar;
+var wrongLetters = [];
+var correctLetters;
 
-// play game at least once
-var wantsToPlay = true;
-var wins = 0;
-var losses = 0;
-
-while (wantsToPlay) {
-    var isSolved = false;
-    var numberOfGuesses = 15;
-
+function initializeSettings() {
+    isSolved = false;
+    numberOfGuesses = 15;
     // initialize each letter value to unselected
-    for (var letter in alphabet) {
-        alphabet[letter] = "unselected";
-        console.log(letter + ": " + alphabet[letter]);
-    }
 
-    var randomComposerIndex = Math.floor(Math.random() * composers.length);
+    randomComposerIndex = Math.floor(Math.random() * composers.length);
     // assign random composer as the hangman answer
-    var puzzleAnswer = composers[randomComposerIndex][1].toUpperCase(); //gets random last name which is index [randomComposerIndex][1]
+    puzzleAnswer = composers[randomComposerIndex][1].toUpperCase(); //gets random last name which is index [randomComposerIndex][1]
     console.log(wantsToPlay);
     console.log("randomComposerIndex: " + randomComposerIndex);
-
+    for (var letter in alphabet) {
+        alphabet[letter] = "unselected";
+    }
     document.getElementById("win-counter").innerHTML = wins;
     document.getElementById("loss-counter").innerHTML = losses;
-
     // make answer all uppercase
 
     console.log("puzzleAnswer: " + puzzleAnswer);
 
-    var answerSoFar = "";
+    answerSoFar = "";
     // write correct number of spaces to HTML
     for (var i = 0; i < puzzleAnswer.length; i++) {
         answerSoFar += "_ ";
@@ -80,53 +85,53 @@ while (wantsToPlay) {
     document.getElementById("word-blanks").innerHTML = answerSoFar;
 
     document.getElementById("guesses-left").innerHTML = numberOfGuesses;
+    wrongLetters = [];
+    document.getElementById("wrong-guesses").innerHTML = "";
+    // if letter is unselected, check if letter is in puzzleAnswer
+    // if letter is correct, output it in HTML document along with other correct letters as many times as needed
+    correctLetters = 0;
+    wrongLetterDisplay = "";
+}
+
+initializeSettings();
+
+while (wantsToPlay) {
+    // loop to write puzzle answer so far
 
     document.onkeyup = function (event) {
-        var keyCommand = event.key;
-        var answerSoFar = "";
-        var wrongLetters = [];
-        document.getElementById("wrong-guesses").innerHTML = "";
-
-        // if letter is unselected, check if letter is in puzzleAnswer
-        // if letter is correct, output it in HTML document along with other correct letters as many times as needed
-        var correctLetters = 0;
-        for (var i = 0; i < puzzleAnswer.length; i++) {
-            if (alphabet[keyCommand.toLowerCase()] === "unselected") {
-                if (puzzleAnswer.charAt(i).toLowerCase() == keyCommand.toLowerCase()) {
-                    answerSoFar += keyCommand.toUpperCase() + " ";
-                    correctLetters++;
-                    if (i === puzzleAnswer.length - 1) {
-                        alphabet[keyCommand] = "correct";
-                        numberOfGuesses--;
-                        if (puzzleAnswer.length === correctLetters) {
-                            wins++;
-                            document.getElementById("win-counter") = wins;
+        keyCommand = event.key;
+        if (keyCommand.toLowerCase() in alphabet) {
+            answerSoFar = "";
+            for (var i = 0; i < puzzleAnswer.length; i++) {
+                if (alphabet[keyCommand.toLowerCase()] === "unselected") {
+                    if (puzzleAnswer.charAt(i).toLowerCase() == keyCommand.toLowerCase()) {
+                        answerSoFar += keyCommand.toUpperCase() + " ";
+                        correctLetters++;
+                        if (i === puzzleAnswer.length - 1) {
+                            alphabet[keyCommand] = "correct";
+                            numberOfGuesses--;
                         }
+                    } else if (alphabet[puzzleAnswer.charAt(i)] === "correct") {
+                        answerSoFar += puzzleAnswer.charAt(i).toUpperCase() + " ";
+                    } else if (alphabet[keyCommand.toLowerCase()] === "unselected" && i === puzzleAnswer.length - 1) { //answer is wrong for the first time
+                        alphabet[keyCommand] = "wrong";
+                        wrongLetters.push(keyCommand.toUpperCase);
+                        numberOfGuesses--;
+                    } else if (alphabet[keyCommand.toLowerCase()] === "wrong") {
+                        continue;
                     }
-                } else if (alphabet[puzzleAnswer.charAt(i)] === "correct") {
-                    answerSoFar += puzzleAnswer.charAt(i).toUpperCase() + " ";
-                } else if (alphabet[keyCommand] === "unselected" && i === puzzleAnswer.length - 1) {
-                    alphabet[keyCommand] = "wrong";
-                    wrongLetters.push(keyCommand.toUpperCase);
-                    numberOfGuesses--;
-                } else if (alphabet[keyCommand] === "wrong") {
-                    // do nothing
-                } else {
-                    // key command is not in alphabet
                 }
             }
         }
         console.log("answerSoFar: " + answerSoFar);
         document.getElementById("word-blanks").innerHTML = answerSoFar;
         document.getElementById("guesses-left").innerHTML = numberOfGuesses;
-        if (numberOfGuesses === 0) {
-            // if numberOfGuesses == 0 then output "you lost" message and increment losses variable
-            losses++;
-            document.getElementById("loss-counter").innerHTML = losses;
-        }
 
         // display wrong letters if any
-        var wrongLetterDisplay = "";
+
+        // if puzzle is solved, output congratulations message, increment wins variable
+        // display all composer information, and play youtube video in background
+        wrongLetterDisplay = "";
         if (wrongLetters.length > 1) {
             // if letter is wrong, output it in HTML document along with other wrong letters in order of entry
             for (var i = 0; i < wrongLetters.length; i++) {
@@ -138,16 +143,27 @@ while (wantsToPlay) {
             }
         } else if (wrongLetters.length === 1) {
             wrongLetterDisplay = wrongLetters[0];
-        } else {
-            // do nothing
         }
         document.getElementById("wrong-guesses").innerHTML = wrongLetterDisplay;
         console.log("Wrong letter display: " + wrongLetterDisplay);
-
-
-        // if puzzle is solved, output congratulations message, increment wins variable,
-        // display all composer information, and play youtube video in background
+        if (puzzleAnswer.length === correctLetters) {
+            wins++;
+            document.getElementById("win-counter").innerHTML = wins;
+            wantsToPlay = confirm("Want to play again?");
+            if (wantsToPlay) {
+                initializeSettings();
+            } else {
+                break;
+            }
+        } else if (numberOfGuesses === 0 && puzzleAnswer.length > correctLetters) {
+            losses++;
+            document.getElementById("loss-counter").innerHTML = losses;
+            wantsToPlay = confirm("Want to play again?");
+            if (wantsToPlay) {
+                initializeSettings();
+            } else {
+                break;
+            }
+        }
     }
-
-    wantsToPlay = confirm("Want to play again?\n\nClick OK to continue or Cancel to exit.");
 }
