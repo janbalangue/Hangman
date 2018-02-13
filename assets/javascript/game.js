@@ -153,14 +153,14 @@ while (wantsToPlay) {
                 // display all composer information, and play youtube video in background
                 wins++;
                 document.getElementById("win-counter").innerHTML = wins;
-                document.getElementById("composer-name").innerHTML = composers[randomComposerIndex][1] + ", " + composers[randomComposerIndex][2];
+                document.getElementById("composer-name").innerHTML = composers[randomComposerIndex][1] + ", " + composers[randomComposerIndex][2]; // displays last name, comma, and first name
                 document.getElementById("years-lived").innerHTML = composers[randomComposerIndex][3]; // composers[randomComposerIndex][3] is years lived
                 document.getElementById("piece").innerHTML = composers[randomComposerIndex][4]; // composers[randomComposerIndex][4] is title of piece
                 document.getElementById("performer").innerHTML = composers[randomComposerIndex][5]; //  composers[randomComposerIndex][5] is performer
                 document.getElementById("video-player").innerHTML = composers[randomComposerIndex][6]; // composers[randomComposerIndex][6] is the iframe tag to the video
                 console.log("Youtube iframe link: " + composers[randomComposerIndex][6]);
                 document.getElementById("status-message-2").innerHTML = "You win!";
-                this.location.reload();
+                // this.location.reload();
                 alert("You win!");
                 wantsToPlay = playAgain();
             } else if (numberOfGuesses === 0) {
