@@ -1,4 +1,4 @@
-const composers = [
+var composers = [
     [0, "Rachmaninoff", "Sergei", "1873-1943", "Piano Concerto No. 2 Op. 18", "Arthur Rubinstein, Piano", '<iframe width="560" height="315" src="https://www.youtube.com/embed/M_VCbnqbwwA?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'],
     [1, "Wagner", "Richard", "1813-1883", "Ride of the Valkyries - Ring", "Berlin Philharmonic Orchestra, Herbert von Karajan, Conductor", '<iframe width="560" height="315" src="https://www.youtube.com/embed/aOyaC1DvBvw?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'],
     [2, "Schubert", "Franz", "1797-1828", "Impromptu Op. 90 No. 3", "Alfred Brendel, Piano", '<iframe width="560" height="315" src="https://www.youtube.com/embed/s15zyzSxrdI?rel=0&amp;controls=0&amp;showinfo=0&amp;start=6" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'],
@@ -50,7 +50,6 @@ var alphabet = {
 var numberOfGuesses = 9;
 var randomComposerIndex;
 var puzzleAnswer = "";
-var keyCommand = "";
 var answerSoFar = "";
 var wrongLetters = [];
 var wrongLetterDisplay = "";
@@ -101,11 +100,11 @@ function playAgain() {
 
 initializeSettings();
 
-while (wantsToPlay) {
+do {
     // loop to write puzzle answer so far
 
     document.onkeyup = function (event) {
-        keyCommand = event.key;
+        var keyCommand = event.key;
         console.log("keyCommand: " + keyCommand);
         if (keyCommand in alphabet) {
             answerSoFar = "";
@@ -114,7 +113,7 @@ while (wantsToPlay) {
                     if (puzzleAnswer.charAt(i).toLowerCase() == keyCommand) { // found match in puzzleAnswer
                         answerSoFar += keyCommand.toUpperCase() + " ";
                         correctLetters++;
-                        if (i === puzzleAnswer.length - 1) {
+                        if (i === puzzleAnswer.length - 1) { // if this is the last letter in solution, set letter to "correct" and decrement numberOfGuesses
                             alphabet[keyCommand] = "correct";
                             numberOfGuesses--;
                         }
@@ -157,12 +156,13 @@ while (wantsToPlay) {
             wins++;
             document.getElementById("win-counter").innerHTML = wins;
             document.getElementById("composer-name").innerHTML = composers[randomComposerIndex][1] + ", " + composers[randomComposerIndex][2];
-            document.getElementById("years-lived").innerHTML = composers[randomComposerIndex][3]; // [][3] is years lived
-            document.getElementById("piece").innerHTML = composers[randomComposerIndex][4]; // [][4] is title of piece
-            document.getElementById("performer").innerHTML = composers[randomComposerIndex][5]; //  [][5] is performer
-            document.getElementById("video-player").innerHTML = composers[randomComposerIndex][6]; // [][6] is the iframe tag to the video
+            document.getElementById("years-lived").innerHTML = composers[randomComposerIndex][3]; // composers[randomComposerIndex][3] is years lived
+            document.getElementById("piece").innerHTML = composers[randomComposerIndex][4]; // composers[randomComposerIndex][4] is title of piece
+            document.getElementById("performer").innerHTML = composers[randomComposerIndex][5]; //  composers[randomComposerIndex][5] is performer
+            document.getElementById("video-player").innerHTML = composers[randomComposerIndex][6]; // composers[randomComposerIndex][6] is the iframe tag to the video
             console.log("Youtube iframe link: " + composers[randomComposerIndex][6]);
             document.getElementById("status-message-2").innerHTML = "You win!";
+            this.location.reload();
             wantsToPlay = playAgain();
         } else if (numberOfGuesses === 0) {
             losses++;
@@ -171,7 +171,8 @@ while (wantsToPlay) {
             wantsToPlay = playAgain();
         }
     }
-}
+} while (wantsToPlay);
+
 document.getElementById("status-message-1").innerHTML = "Thanks for playing!";
 if (wins > losses) {
     document.getElementById("status-message-2").innerHTML = "Congratulations on your score!";
@@ -180,3 +181,4 @@ if (wins > losses) {
 } else {
     document.getElementById("status-message-2").innerHTML = "Better luck next time!";
 }
+
