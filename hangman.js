@@ -163,3 +163,11 @@ while (wantsToPlay) {
         }
     }
 }
+document.getElementById("status-message-1").innerHTML= "Thanks for playing!";
+if (wins > losses) {
+    document.getElementById("status-message-2").innerHTML="Congratulations on your score!";
+} else if (wins === losses) {
+    document.getElementById("status-message-2").innerHTML="Tie game!";
+} else {
+    document.getElementById("status-message-2").innerHTML="Better luck next time!";
+}
