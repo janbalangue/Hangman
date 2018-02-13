@@ -150,35 +150,32 @@ while (wantsToPlay) {
             }
             document.getElementById("word-blanks").innerHTML = answerSoFar;
             console.log("answerSoFar: " + answerSoFar);
-        }
-        
-        // display wrong letters if any
-        // if puzzle is solved, output congratulations message, increment wins variable
-        // display all composer information, and play youtube video in background
-
-        if (puzzleAnswer.length === correctLetters) {
-            wins++;
-            document.getElementById("win-counter").innerHTML = wins;
-            document.getElementById("composer-name").innerHTML = composers[randomComposerIndex][1] + ", " + composers[randomComposerIndex][2];
-            document.getElementById("years-lived").innerHTML = composers[randomComposerIndex][3]; // composers[randomComposerIndex][3] is years lived
-            document.getElementById("piece").innerHTML = composers[randomComposerIndex][4]; // composers[randomComposerIndex][4] is title of piece
-            document.getElementById("performer").innerHTML = composers[randomComposerIndex][5]; //  composers[randomComposerIndex][5] is performer
-            document.getElementById("video-player").innerHTML = composers[randomComposerIndex][6]; // composers[randomComposerIndex][6] is the iframe tag to the video
-            console.log("Youtube iframe link: " + composers[randomComposerIndex][6]);
-            document.getElementById("status-message-2").innerHTML = "You win!";
-            this.location.reload();
-            alert("You win!");
-            wantsToPlay = playAgain();
-        } else if (numberOfGuesses === 0) {
-            losses++;
-            document.getElementById("loss-counter").innerHTML = losses;
-            alert("You lose.");
-            wantsToPlay = playAgain();
+            if (puzzleAnswer.length === correctLetters) {
+                // if puzzle is solved, output congratulations message, increment wins variable
+                // display all composer information, and play youtube video in background
+                wins++;
+                document.getElementById("win-counter").innerHTML = wins;
+                document.getElementById("composer-name").innerHTML = composers[randomComposerIndex][1] + ", " + composers[randomComposerIndex][2];
+                document.getElementById("years-lived").innerHTML = composers[randomComposerIndex][3]; // composers[randomComposerIndex][3] is years lived
+                document.getElementById("piece").innerHTML = composers[randomComposerIndex][4]; // composers[randomComposerIndex][4] is title of piece
+                document.getElementById("performer").innerHTML = composers[randomComposerIndex][5]; //  composers[randomComposerIndex][5] is performer
+                document.getElementById("video-player").innerHTML = composers[randomComposerIndex][6]; // composers[randomComposerIndex][6] is the iframe tag to the video
+                console.log("Youtube iframe link: " + composers[randomComposerIndex][6]);
+                document.getElementById("status-message-2").innerHTML = "You win!";
+                this.location.reload();
+                alert("You win!");
+                wantsToPlay = playAgain();
+            } else if (numberOfGuesses === 0) {
+                losses++;
+                document.getElementById("loss-counter").innerHTML = losses;
+                alert("You ran out of guesses.");
+                wantsToPlay = playAgain();
+            }
         }
     }
 }
 
-
+// after quitting the game
 
 document.getElementById("status-message-1").innerHTML = "Thanks for playing!";
 if (wins > losses) {
