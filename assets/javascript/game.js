@@ -14,37 +14,38 @@ var composers = [
 var wins = 0;
 var losses = 0;
 var wantsToPlay = true;
-// each alphabet letter can have one of three statuses: 
+// each alphabet letter can have one of four statuses:
+// unset = default 
 // unselected = the letter hasn't been picked yet
 // correct = the letter is picked and is part of the solution
 // wrong = the letter is picked and is not part of the solution
 var alphabet = {
-    "a": "unselected",
-    "b": "unselected",
-    "c": "unselected",
-    "d": "unselected",
-    "e": "unselected",
-    "f": "unselected",
-    "g": "unselected",
-    "h": "unselected",
-    "i": "unselected",
-    "j": "unselected",
-    "k": "unselected",
-    "l": "unselected",
-    "m": "unselected",
-    "n": "unselected",
-    "o": "unselected",
-    "p": "unselected",
-    "q": "unselected",
-    "r": "unselected",
-    "s": "unselected",
-    "t": "unselected",
-    "u": "unselected",
-    "v": "unselected",
-    "w": "unselected",
-    "x": "unselected",
-    "y": "unselected",
-    "z": "unselected"
+    "a": "unset",
+    "b": "unset",
+    "c": "unset",
+    "d": "unset",
+    "e": "unset",
+    "f": "unset",
+    "g": "unset",
+    "h": "unset",
+    "i": "unset",
+    "j": "unset",
+    "k": "unset",
+    "l": "unset",
+    "m": "unset",
+    "n": "unset",
+    "o": "unset",
+    "p": "unset",
+    "q": "unset",
+    "r": "unset",
+    "s": "unset",
+    "t": "unset",
+    "u": "unset",
+    "v": "unset",
+    "w": "unset",
+    "x": "unset",
+    "y": "unset",
+    "z": "unset"
 };
 var numberOfGuesses = 9;
 var randomComposerIndex = 0;
