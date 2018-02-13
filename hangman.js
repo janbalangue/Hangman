@@ -162,12 +162,12 @@ while (wantsToPlay) {
             document.getElementById("performer").innerHTML = composers[randomComposerIndex][5]; //  [][5] is performer
             document.getElementById("video-player").innerHTML = composers[randomComposerIndex][6]; // [][6] is the iframe tag to the video
             console.log("Youtube iframe link: " + composers[randomComposerIndex][6]);
-            alert("You win!");
+            document.getElementById("status-message-2").innerHTML = "You win!";
             wantsToPlay = playAgain();
         } else if (numberOfGuesses === 0) {
             losses++;
             document.getElementById("loss-counter").innerHTML = losses;
-            alert("You lose.");
+            document.getElementById("status-message-2").innerHTML = "You lose.";
             wantsToPlay = playAgain();
         }
     }
