@@ -49,7 +49,6 @@ var alphabet = {
     y: "unselected",
     z: "unselected"
 };
-var isSolved;
 var numberOfGuesses;
 var randomComposerIndex;
 var puzzleAnswer;
@@ -59,8 +58,7 @@ var wrongLetters = [];
 var correctLetters;
 
 function initializeSettings() {
-    isSolved = false;
-    numberOfGuesses = 15;
+    numberOfGuesses = 9;
     // initialize each letter value to unselected
 
     randomComposerIndex = Math.floor(Math.random() * composers.length);
@@ -91,6 +89,7 @@ function initializeSettings() {
     // if letter is correct, output it in HTML document along with other correct letters as many times as needed
     correctLetters = 0;
     wrongLetterDisplay = "";
+    document.getElementById("wrong-guesses").innerHTML = wrongLetterDisplay;
 }
 
 initializeSettings();
@@ -99,12 +98,12 @@ while (wantsToPlay) {
     // loop to write puzzle answer so far
 
     document.onkeyup = function (event) {
-        keyCommand = event.key;
-        if (keyCommand.toLowerCase() in alphabet) {
+        keyCommand = String.fromCharCode(event.which).toLowerCase();
+        if (keyCommand in alphabet) {
             answerSoFar = "";
             for (var i = 0; i < puzzleAnswer.length; i++) {
-                if (alphabet[keyCommand.toLowerCase()] === "unselected") {
-                    if (puzzleAnswer.charAt(i).toLowerCase() == keyCommand.toLowerCase()) {
+                if (alphabet[keyCommand] === "unselected") {
+                    if (puzzleAnswer.charAt(i).toLowerCase() == keyCommand) {
                         answerSoFar += keyCommand.toUpperCase() + " ";
                         correctLetters++;
                         if (i === puzzleAnswer.length - 1) {
@@ -113,11 +112,11 @@ while (wantsToPlay) {
                         }
                     } else if (alphabet[puzzleAnswer.charAt(i)] === "correct") {
                         answerSoFar += puzzleAnswer.charAt(i).toUpperCase() + " ";
-                    } else if (alphabet[keyCommand.toLowerCase()] === "unselected" && i === puzzleAnswer.length - 1) { //answer is wrong for the first time
+                    } else if (alphabet[keyCommand] === "unselected" && i === puzzleAnswer.length - 1) { //answer is wrong for the first time
                         alphabet[keyCommand] = "wrong";
                         wrongLetters.push(keyCommand.toUpperCase);
                         numberOfGuesses--;
-                    } else if (alphabet[keyCommand.toLowerCase()] === "wrong") {
+                    } else if (alphabet[keyCommand] === "wrong") {
                         continue;
                     }
                 }
@@ -164,11 +163,11 @@ while (wantsToPlay) {
         }
     }
 }
-document.getElementById("status-message-1").innerHTML= "Thanks for playing!";
+document.getElementById("status-message-1").innerHTML = "Thanks for playing!";
 if (wins > losses) {
-    document.getElementById("status-message-2").innerHTML="Congratulations on your score!";
+    document.getElementById("status-message-2").innerHTML = "Congratulations on your score!";
 } else if (wins === losses) {
-    document.getElementById("status-message-2").innerHTML="Tie game!";
+    document.getElementById("status-message-2").innerHTML = "Tie game!";
 } else {
-    document.getElementById("status-message-2").innerHTML="Better luck next time!";
+    document.getElementById("status-message-2").innerHTML = "Better luck next time!";
 }
