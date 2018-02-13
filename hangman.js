@@ -122,10 +122,11 @@ while (wantsToPlay) {
                     }
                 }
             }
+            document.getElementById("word-blanks").innerHTML = answerSoFar;
+            document.getElementById("guesses-left").innerHTML = numberOfGuesses;
         }
         console.log("answerSoFar: " + answerSoFar);
-        document.getElementById("word-blanks").innerHTML = answerSoFar;
-        document.getElementById("guesses-left").innerHTML = numberOfGuesses;
+
 
         // display wrong letters if any
 

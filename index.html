@@ -22,8 +22,8 @@
     <div class="jumbotron">
       <div class="container">
         <h1>Hangman - Classical Edition</h1>
-        <h2>Guess the composer!</h2>
-        <small>Click any letter to begin...</small>
+        <h2 id="status-message-1">Guess the composer!</h2>
+        <small id="status-message-2">Click any letter to begin...</small>
       </div>
     </div>
 
@@ -39,7 +39,7 @@
           <div class="panel-body">
             <!-- This h3 section called wordblanks is what we'll be replacing with letters as the user guesses.
 						Pay particular attention to the id called ***wordblanks***. We'll be referencing this in the JavaScript. -->
-            <h3 id="word-blanks">_ _ _ _ _ _ _ _ _ </h3>
+            <h3 id="word-blanks"></h3>
           </div>
         </div>
 
@@ -90,5 +90,4 @@
 	If you put this at the top it will crash, because the HTML IDs won't exist yet.-->
   <script src="hangman.js"></script>
 </body>
-
 </html>
