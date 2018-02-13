@@ -106,10 +106,10 @@ while (wantsToPlay) {
         var keyCommand = event.key;
         console.log("keyCommand: " + keyCommand);
         if (keyCommand in alphabet) {
+            answerSoFar = "";
             for (var i = 0; i < puzzleAnswer.length; i++) {
                 if (puzzleAnswer.charAt(i).toLowerCase() == keyCommand) {
                     if (alphabet[keyCommand] === "unselected") { // found match in puzzleAnswer
-                        answerSoFar = "";
                         answerSoFar += keyCommand.toUpperCase() + " ";
                         correctLetters++;
                         if (i === puzzleAnswer.length - 1) { // if this is the last letter in solution, set letter to "correct" and decrement numberOfGuesses
@@ -131,7 +131,7 @@ while (wantsToPlay) {
                                 if (i === wrongLetters.length - 1) {
                                     wrongLetterDisplay += wrongLetters[i];
                                 } else {
-                                    wrongLetterDisplay = wrongLetters[i] + ", ";
+                                    wrongLetterDisplay = wrongLetters[i] + ", "; // add comma if needed
                                 }
                             }
                         } else if (wrongLetters.length === 1) {
@@ -141,10 +141,8 @@ while (wantsToPlay) {
                         console.log("Wrong letter display: " + wrongLetterDisplay);
                         document.getElementById("guesses-left").innerHTML = numberOfGuesses;
                         console.log("numberOfGuesses: " + numberOfGuesses);
-                    } else if (alphabet[keyCommand] === "wrong") {  // letter is already wrong
-                        continue;
                     }
-                } else {
+                } else if (i <= puzzleAnswer.length - 1) {
                     answerSoFar += "_ ";
                 }   
             }
