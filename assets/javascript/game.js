@@ -99,6 +99,11 @@ function playAgain() {
     }
 }
 
+function displayNumberOfGuesses() {
+    document.getElementById("guesses-left").innerHTML = numberOfGuesses;
+    console.log("numberOfGuesses: " + numberOfGuesses);
+}
+
 initializeSettings();
 
 while (wantsToPlay) {
@@ -109,16 +114,14 @@ while (wantsToPlay) {
         console.log("keyCommand: " + keyCommand);
         if (keyCommand in alphabet) {
             answerSoFar = "";
-            for (var i = 0; i < puzzleAnswer.length; i++) {
+            for (var i = 0; i < puzzleAnswer.length; i++) { // update "word-blanks" and "wrong-guesses" IDs in index.html
                 if (puzzleAnswer.charAt(i).toLowerCase() == keyCommand) {
                     if (alphabet[keyCommand] === "unselected") { // found match in puzzleAnswer
                         answerSoFar += keyCommand.toUpperCase() + " ";
                         correctLetters++;
                         if (i === puzzleAnswer.length - 1) { // if this is the last letter in solution, set letter to "correct" and decrement numberOfGuesses
                             alphabet[keyCommand] = "correct";
-                            numberOfGuesses--;
-                            document.getElementById("guesses-left").innerHTML = numberOfGuesses;
-                            console.log("numberOfGuesses: " + numberOfGuesses);
+
                         }
                     } else if (alphabet[puzzleAnswer.charAt(i).toLowerCase()] === "correct") { // letter is already correct
                         answerSoFar += puzzleAnswer.charAt(i) + " ";
@@ -141,10 +144,9 @@ while (wantsToPlay) {
                         }
                         document.getElementById("wrong-guesses").innerHTML = wrongLetterDisplay;
                         console.log("Wrong letter display: " + wrongLetterDisplay);
-                        document.getElementById("guesses-left").innerHTML = numberOfGuesses;
-                        console.log("numberOfGuesses: " + numberOfGuesses);
+                        displayNumberOfGuesses();
                     }
-                } else if (i <= puzzleAnswer.length - 1) {
+                } else if (puzzleAnswer.charAt(i) in alphabet) {
                     answerSoFar += "_ ";
                 }   
             }
@@ -175,7 +177,7 @@ while (wantsToPlay) {
     }
 }
 
-// after quitting the game
+// after quitting the game, display exit messages
 
 document.getElementById("status-message-1").innerHTML = "Thanks for playing!";
 if (wins > losses) {
