@@ -1,4 +1,4 @@
-var composers = [
+const composers = [
     [0, "Rachmaninoff", "Sergei", "1873-1943", "Piano Concerto No. 2 Op. 18", "Arthur Rubinstein, Piano", '<iframe width="560" height="315" src="https://www.youtube.com/embed/M_VCbnqbwwA?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'],
     [1, "Wagner", "Richard", "1813-1883", "Ride of the Valkyries - Ring", "Berlin Philharmonic Orchestra, Herbert von Karajan, Conductor", '<iframe width="560" height="315" src="https://www.youtube.com/embed/aOyaC1DvBvw?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'],
     [2, "Schubert", "Franz", "1797-1828", "Impromptu Op. 90 No. 3", "Alfred Brendel, Piano", '<iframe width="560" height="315" src="https://www.youtube.com/embed/s15zyzSxrdI?rel=0&amp;controls=0&amp;showinfo=0&amp;start=6" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'],
@@ -47,14 +47,13 @@ var alphabet = {
     y: "unselected",
     z: "unselected"
 };
-var numberOfGuesses;
+var numberOfGuesses = 9;
 var randomComposerIndex;
-var puzzleAnswer;
+var puzzleAnswer = "";
 var keyCommand = "";
-var answerSoFar;
+var answerSoFar = "";
 var wrongLetters = [];
-var correctLetters;
-var wrongLetterDisplay;
+var wrongLetterDisplay = "";
 
 function initializeSettings() {
     numberOfGuesses = 9;
@@ -97,6 +96,7 @@ while (wantsToPlay) {
 
     document.onkeyup = function (event) {
         keyCommand = String.fromCharCode(event.which).toLowerCase();
+        console.log("keyCommand: " + keyCommand);
         if (keyCommand in alphabet) {
             answerSoFar = "";
             for (var i = 0; i < puzzleAnswer.length; i++) {
@@ -108,11 +108,11 @@ while (wantsToPlay) {
                             alphabet[keyCommand] = "correct";
                             numberOfGuesses--;
                         }
-                    } else if (alphabet[puzzleAnswer.charAt(i)] === "correct") {
-                        answerSoFar += puzzleAnswer.charAt(i).toUpperCase() + " ";
+                    } else if (alphabet[puzzleAnswer.charAt(i).toLowerCase()] === "correct") {
+                        answerSoFar += puzzleAnswer.charAt(i) + " ";
                     } else if (alphabet[keyCommand] === "unselected" && i === puzzleAnswer.length - 1) { //answer is wrong for the first time
                         alphabet[keyCommand] = "wrong";
-                        wrongLetters.push(keyCommand.toUpperCase);
+                        wrongLetters.push(keyCommand.toUpperCase());
                         numberOfGuesses--;
                     } else if (alphabet[keyCommand] === "wrong") {
                         continue;
@@ -120,9 +120,10 @@ while (wantsToPlay) {
                 }
             }
             document.getElementById("word-blanks").innerHTML = answerSoFar;
+            console.log("answerSoFar: " + answerSoFar);
             document.getElementById("guesses-left").innerHTML = numberOfGuesses;
+            console.log("numberOfGuesses: " + numberOfGuesses);
         }
-        console.log("answerSoFar: " + answerSoFar);
 
 
         // display wrong letters if any
@@ -147,11 +148,12 @@ while (wantsToPlay) {
         if (puzzleAnswer.length === correctLetters) {
             wins++;
             document.getElementById("win-counter").innerHTML = wins;
-            document.getElementById("composer-name").innerHTML = composers[randomComposerIndex][1] + ", " +composers[randomComposerIndex][2];
+            document.getElementById("composer-name").innerHTML = composers[randomComposerIndex][1] + ", " + composers[randomComposerIndex][2];
             document.getElementById("years-lived").innerHTML = composers[randomComposerIndex][3]; // sub 3 is years lived
             document.getElementById("piece").innerHTML = composers[randomComposerIndex][4]; // sub 4 is title of piece
             document.getElementById("performer").innerHTML = composers[randomComposerIndex][5]; // sub 5 is performer
             document.getElementById("video-player").innerHTML = eval(composers[randomComposerIndex][6]); // sub 6 is the iframe tag to the video
+            alert("You win!");
             wantsToPlay = confirm("Want to play again?");
             if (wantsToPlay) {
                 initializeSettings();
@@ -159,6 +161,7 @@ while (wantsToPlay) {
         } else if (numberOfGuesses === 0) {
             losses++;
             document.getElementById("loss-counter").innerHTML = losses;
+            alert("You lose.");
             wantsToPlay = confirm("Want to play again?");
             if (wantsToPlay) {
                 initializeSettings();
