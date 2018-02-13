@@ -152,8 +152,6 @@ while (wantsToPlay) {
             wantsToPlay = confirm("Want to play again?");
             if (wantsToPlay) {
                 initializeSettings();
-            } else {
-                break;
             }
         } else if (numberOfGuesses === 0 && puzzleAnswer.length > correctLetters) {
             losses++;
@@ -161,8 +159,6 @@ while (wantsToPlay) {
             wantsToPlay = confirm("Want to play again?");
             if (wantsToPlay) {
                 initializeSettings();
-            } else {
-                break;
             }
         }
     }
