@@ -10,17 +10,15 @@ var composers = [
     [8, "Barber", "Samuel", "1910-1981", "Adagio for Strings, Op. 11", "Atlanta Symphony Orchestra, Yoel Levi, Conductor", '<iframe width="560" height="315" src="https://www.youtube.com/embed/xDEvJ9vErJw?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>']
 ];
 
-// each alphabet letter can have one of three statuses: 
-// unselected = the letter hasn't been picked yet
-// correct = the letter is picked and is part of the solution
-// wrong = the letter is picked and is not part of the solution
-
-
-
 // play game at least once
 var wantsToPlay = true;
 var wins = 0;
 var losses = 0;
+
+// each alphabet letter can have one of three statuses: 
+// unselected = the letter hasn't been picked yet
+// correct = the letter is picked and is part of the solution
+// wrong = the letter is picked and is not part of the solution
 var alphabet = {
     a: "unselected",
     b: "unselected",
@@ -56,14 +54,16 @@ var keyCommand = "";
 var answerSoFar;
 var wrongLetters = [];
 var correctLetters;
+var wrongLetterDisplay;
 
 function initializeSettings() {
     numberOfGuesses = 9;
     // initialize each letter value to unselected
+    document.getElementById("guesses-left").innerHTML = numberOfGuesses;
 
     randomComposerIndex = Math.floor(Math.random() * composers.length);
     // assign random composer as the hangman answer
-    puzzleAnswer = composers[randomComposerIndex][1].toUpperCase(); //gets random last name which is index [randomComposerIndex][1]
+    puzzleAnswer = composers[randomComposerIndex][1].toUpperCase(); // makes answer uppercase; 1 is the composer's last name
     console.log(wantsToPlay);
     console.log("randomComposerIndex: " + randomComposerIndex);
     for (var letter in alphabet) {
@@ -71,7 +71,6 @@ function initializeSettings() {
     }
     document.getElementById("win-counter").innerHTML = wins;
     document.getElementById("loss-counter").innerHTML = losses;
-    // make answer all uppercase
 
     console.log("puzzleAnswer: " + puzzleAnswer);
 
@@ -82,7 +81,6 @@ function initializeSettings() {
     }
     document.getElementById("word-blanks").innerHTML = answerSoFar;
 
-    document.getElementById("guesses-left").innerHTML = numberOfGuesses;
     wrongLetters = [];
     document.getElementById("wrong-guesses").innerHTML = "";
     // if letter is unselected, check if letter is in puzzleAnswer
@@ -135,7 +133,7 @@ while (wantsToPlay) {
         if (wrongLetters.length > 1) {
             // if letter is wrong, output it in HTML document along with other wrong letters in order of entry
             for (var i = 0; i < wrongLetters.length; i++) {
-                if (i == wrongLetters.length - 1) {
+                if (i === wrongLetters.length - 1) {
                     wrongLetterDisplay += wrongLetters[i];
                 } else {
                     wrongLetterDisplay = wrongLetters[i] + ", ";
@@ -149,11 +147,16 @@ while (wantsToPlay) {
         if (puzzleAnswer.length === correctLetters) {
             wins++;
             document.getElementById("win-counter").innerHTML = wins;
+            document.getElementById("composer-name").innerHTML = composers[randomComposerIndex][1] + ", " +composers[randomComposerIndex][2];
+            document.getElementById("years-lived").innerHTML = composers[randomComposerIndex][3]; // sub 3 is years lived
+            document.getElementById("piece").innerHTML = composers[randomComposerIndex][4]; // sub 4 is title of piece
+            document.getElementById("performer").innerHTML = composers[randomComposerIndex][5]; // sub 5 is performer
+            document.getElementById("video-player").innerHTML = eval(composers[randomComposerIndex][6]); // sub 6 is the iframe tag to the video
             wantsToPlay = confirm("Want to play again?");
             if (wantsToPlay) {
                 initializeSettings();
             }
-        } else if (numberOfGuesses === 0 && puzzleAnswer.length > correctLetters) {
+        } else if (numberOfGuesses === 0) {
             losses++;
             document.getElementById("loss-counter").innerHTML = losses;
             wantsToPlay = confirm("Want to play again?");
