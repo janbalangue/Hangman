@@ -99,9 +99,9 @@ function playAgain() {
     }
 }
 
-function displayNumberOfGuesses() {
-    document.getElementById("guesses-left").innerHTML = numberOfGuesses;
-    console.log("numberOfGuesses: " + numberOfGuesses);
+function displayNumberOfGuesses(number) {
+    document.getElementById("guesses-left").innerHTML = number;
+    console.log("numberOfGuesses: " + number);
 }
 
 initializeSettings();
@@ -144,7 +144,7 @@ while (wantsToPlay) {
                         }
                         document.getElementById("wrong-guesses").innerHTML = wrongLetterDisplay;
                         console.log("Wrong letter display: " + wrongLetterDisplay);
-                        displayNumberOfGuesses();
+                        displayNumberOfGuesses(numberOfGuesses);
                     }
                 } else if (puzzleAnswer.charAt(i) in alphabet) {
                     answerSoFar += "_ ";
@@ -163,7 +163,6 @@ while (wantsToPlay) {
                 document.getElementById("performer").innerHTML = composers[randomComposerIndex][5]; //  composers[randomComposerIndex][5] is performer
                 document.getElementById("video-player").innerHTML = composers[randomComposerIndex][6]; // composers[randomComposerIndex][6] is the iframe tag to the video
                 console.log("Youtube iframe link: " + composers[randomComposerIndex][6]);
-                document.getElementById("status-message-2").innerHTML = "You win!";
                 // this.location.reload();
                 alert("You win!");
                 wantsToPlay = playAgain();
