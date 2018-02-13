@@ -11,10 +11,9 @@ var composers = [
 ];
 
 // play game at least once
-var wantsToPlay = true;
 var wins = 0;
 var losses = 0;
-
+var wantsToPlay = true;
 // each alphabet letter can have one of three statuses: 
 // unselected = the letter hasn't been picked yet
 // correct = the letter is picked and is part of the solution
@@ -48,14 +47,14 @@ var alphabet = {
     "z": "unselected"
 };
 var numberOfGuesses = 9;
-var randomComposerIndex;
+var randomComposerIndex = 0;
 var puzzleAnswer = "";
 var answerSoFar = "";
 var wrongLetters = [];
 var wrongLetterDisplay = "";
 
 function initializeSettings() {
-    numberOfGuesses = 9;
+    numberOfGuesses = 15;
     // initialize each letter value to unselected
     document.getElementById("guesses-left").innerHTML = numberOfGuesses;
 
@@ -100,22 +99,24 @@ function playAgain() {
 
 initializeSettings();
 
-do {
+while (wantsToPlay) {
     // loop to write puzzle answer so far
 
     document.onkeyup = function (event) {
         var keyCommand = event.key;
         console.log("keyCommand: " + keyCommand);
         if (keyCommand in alphabet) {
-            answerSoFar = "";
             for (var i = 0; i < puzzleAnswer.length; i++) {
-                if (alphabet[keyCommand] === "unselected") {
-                    if (puzzleAnswer.charAt(i).toLowerCase() == keyCommand) { // found match in puzzleAnswer
+                if (puzzleAnswer.charAt(i).toLowerCase() == keyCommand) {
+                    if (alphabet[keyCommand] === "unselected") { // found match in puzzleAnswer
+                        answerSoFar = "";
                         answerSoFar += keyCommand.toUpperCase() + " ";
                         correctLetters++;
                         if (i === puzzleAnswer.length - 1) { // if this is the last letter in solution, set letter to "correct" and decrement numberOfGuesses
                             alphabet[keyCommand] = "correct";
                             numberOfGuesses--;
+                            document.getElementById("guesses-left").innerHTML = numberOfGuesses;
+                            console.log("numberOfGuesses: " + numberOfGuesses);
                         }
                     } else if (alphabet[puzzleAnswer.charAt(i).toLowerCase()] === "correct") { // letter is already correct
                         answerSoFar += puzzleAnswer.charAt(i) + " ";
@@ -123,35 +124,38 @@ do {
                         alphabet[keyCommand] = "wrong";
                         wrongLetters.push(keyCommand.toUpperCase());
                         numberOfGuesses--;
+                        wrongLetterDisplay = "";
+                        if (wrongLetters.length > 1) {
+                            // if letter is wrong, output it in HTML document along with other wrong letters in order of entry
+                            for (var i = 0; i < wrongLetters.length; i++) {
+                                if (i === wrongLetters.length - 1) {
+                                    wrongLetterDisplay += wrongLetters[i];
+                                } else {
+                                    wrongLetterDisplay = wrongLetters[i] + ", ";
+                                }
+                            }
+                        } else if (wrongLetters.length === 1) {
+                            wrongLetterDisplay = wrongLetters[0];
+                        }
+                        document.getElementById("wrong-guesses").innerHTML = wrongLetterDisplay;
+                        console.log("Wrong letter display: " + wrongLetterDisplay);
+                        document.getElementById("guesses-left").innerHTML = numberOfGuesses;
+                        console.log("numberOfGuesses: " + numberOfGuesses);
                     } else if (alphabet[keyCommand] === "wrong") {  // letter is already wrong
                         continue;
                     }
-                }
+                } else {
+                    answerSoFar += "_ ";
+                }   
             }
+            document.getElementById("word-blanks").innerHTML = answerSoFar;
+            console.log("answerSoFar: " + answerSoFar);
         }
-        document.getElementById("word-blanks").innerHTML = answerSoFar;
-        console.log("answerSoFar: " + answerSoFar);
-        document.getElementById("guesses-left").innerHTML = numberOfGuesses;
-        console.log("numberOfGuesses: " + numberOfGuesses);
-
+        
         // display wrong letters if any
         // if puzzle is solved, output congratulations message, increment wins variable
         // display all composer information, and play youtube video in background
-        wrongLetterDisplay = "";
-        if (wrongLetters.length > 1) {
-            // if letter is wrong, output it in HTML document along with other wrong letters in order of entry
-            for (var i = 0; i < wrongLetters.length; i++) {
-                if (i === wrongLetters.length - 1) {
-                    wrongLetterDisplay += wrongLetters[i];
-                } else {
-                    wrongLetterDisplay = wrongLetters[i] + ", ";
-                }
-            }
-        } else if (wrongLetters.length === 1) {
-            wrongLetterDisplay = wrongLetters[0];
-        }
-        document.getElementById("wrong-guesses").innerHTML = wrongLetterDisplay;
-        console.log("Wrong letter display: " + wrongLetterDisplay);
+
         if (puzzleAnswer.length === correctLetters) {
             wins++;
             document.getElementById("win-counter").innerHTML = wins;
@@ -163,15 +167,18 @@ do {
             console.log("Youtube iframe link: " + composers[randomComposerIndex][6]);
             document.getElementById("status-message-2").innerHTML = "You win!";
             this.location.reload();
+            alert("You win!");
             wantsToPlay = playAgain();
         } else if (numberOfGuesses === 0) {
             losses++;
             document.getElementById("loss-counter").innerHTML = losses;
-            document.getElementById("status-message-2").innerHTML = "You lose.";
+            alert("You lose.");
             wantsToPlay = playAgain();
         }
     }
-} while (wantsToPlay);
+}
+
+
 
 document.getElementById("status-message-1").innerHTML = "Thanks for playing!";
 if (wins > losses) {
