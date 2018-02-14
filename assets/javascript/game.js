@@ -115,8 +115,8 @@ while (wantsToPlay) {
         if (keyCommand in alphabet) {
             answerSoFar = "";
             for (var i = 0; i < puzzleAnswer.length; i++) { // update "word-blanks" and "wrong-guesses" IDs in index.html
-                if (puzzleAnswer.charAt(i).toLowerCase() == keyCommand) {
-                    if (alphabet[keyCommand] === "unselected") { // found match in puzzleAnswer
+                if (alphabet[keyCommand] === "unselected") {
+                    if (puzzleAnswer.charAt(i).toLowerCase() == keyCommand) { // found match in puzzleAnswer
                         answerSoFar += keyCommand.toUpperCase() + " ";
                         correctLetters++;
                         if (i === puzzleAnswer.length - 1) { // if this is the last letter in solution, set letter to "correct" and decrement numberOfGuesses
@@ -148,7 +148,7 @@ while (wantsToPlay) {
                     }
                 } else if (puzzleAnswer.charAt(i) in alphabet) {
                     answerSoFar += "_ ";
-                }   
+                }
             }
             document.getElementById("word-blanks").innerHTML = answerSoFar;
             console.log("answerSoFar: " + answerSoFar);
