@@ -9,7 +9,7 @@ var composers = [
     ["goodvideo", "Satie", "Erik", "1866-1925", "Gymnopedie No. 1", "Lars Roos, Piano", '<iframe width="560" height="315" src="https://www.youtube.com/embed/rIjWutnXZz8?autoplay=1&rel=0&amp;controls=0&amp;showinfo=0&amp;start=9" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>'],
     ["goodvideo", "Barber", "Samuel", "1910-1981", "Adagio for Strings, Op. 11", "Atlanta Symphony Orchestra, Yoel Levi, Conductor", '<iframe width="560" height="315" src="https://www.youtube.com/embed/xDEvJ9vErJw?autoplay=1&rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>'],
     ["goodvideo", "Bach", "Johann Sebastian", "1685-1750", "Cello Suite No. 1 - Prelude", "Yo-Yo Ma, Cello", '<iframe width="560" height="315" src="https://www.youtube.com/embed/PCicM6i59_I?autoplay=1&rel=0&amp;controls=0&amp;showinfo=0&amp;start=4" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>'],
-    ["untested", "Debussy", "Claude", "1862-1918",  "Reflets dans l'eau", "Jean-Efflam Bavouzet, Piano", '<iframe width="560" height="315" src="https://www.youtube.com/embed/UAEvlfWB7V4?autoplay=1&rel=0&amp;controls=0&amp;showinfo=0&amp;start=10" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>']
+    ["untested", "Debussy", "Claude", "1862-1918", "Reflets dans l'eau", "Jean-Efflam Bavouzet, Piano", '<iframe width="560" height="315" src="https://www.youtube.com/embed/UAEvlfWB7V4?autoplay=1&rel=0&amp;controls=0&amp;showinfo=0&amp;start=10" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>']
 ];
 
 // play game at least once
@@ -91,17 +91,6 @@ function initializeSettings() {
     document.getElementById("wrong-guesses").innerHTML = wrongLetterDisplay;
 }
 
-function playAgain() {
-    var playAgain = confirm("Want to play again?");
-    if (playAgain) {
-        initializeSettings();
-        return true;
-    } else {
-        alert("Thanks for playing!");
-        return false;
-    }
-}
-
 function displayNumberOfGuesses(number) {
     document.getElementById("guesses-left").innerHTML = number;
     console.log("numberOfGuesses: " + number);
@@ -139,37 +128,36 @@ document.onkeyup = function (event) {
                         document.getElementById("video-player").innerHTML = composers[randomComposerIndex][6]; // composers[randomComposerIndex][6] is the iframe tag to the video
                         console.log("Youtube iframe link: " + composers[randomComposerIndex][6]);
                         alert("You win!");
-                        playAgain();
-                    } else if (isCorrectLetter === false && i === puzzleAnswer.length - 1) { //answer is wrong for the first time
-                        alphabet[keyCommand] = "wrong";
-                        wrongLetters.push(keyCommand.toUpperCase());
-                        numberOfGuesses--;
-                        wrongLetterDisplay = "";
-                        if (wrongLetters.length > 1) {
-                            // if letter is wrong, output it in HTML document along with other wrong letters in order of entry
-                            for (var i = 0; i < wrongLetters.length; i++) {
-                                wrongLetterDisplay += wrongLetters[i] + " ";
-                                console.log("wrongLetterDisplay: " + wrongLetterDisplay);
-                            }
-                            document.getElementById("wrong-guesses").innerHTML = wrongLetterDisplay;
-                            console.log("Wrong letter display: " + wrongLetterDisplay);
-                        }
-                        displayNumberOfGuesses(numberOfGuesses);
-                        if (numberOfGuesses === 0) {
-                            losses++;
-                            document.getElementById("loss-counter").innerHTML = losses;
-                            alert("Sorry, you ran out of guesses.");
-                            playAgain();
-                        } else {
-                            answerSoFar += "_ ";
-                        }
+                        initializeSettings();
                     }
                 }
             }
-        } else {
-            answerSoFar += "_ ";
+        } else if (isCorrectLetter === false && i === puzzleAnswer.length - 1) { //answer is wrong for the first time
+            alphabet[keyCommand] = "wrong";
+            wrongLetters.push(keyCommand.toUpperCase());
+            numberOfGuesses--;
+            wrongLetterDisplay = "";
+            if (wrongLetters.length > 1) {
+                // if letter is wrong, output it in HTML document along with other wrong letters in order of entry
+                for (var i = 0; i < wrongLetters.length; i++) {
+                    wrongLetterDisplay += wrongLetters[i] + " ";
+                    console.log("wrongLetterDisplay: " + wrongLetterDisplay);
+                }
+                document.getElementById("wrong-guesses").innerHTML = wrongLetterDisplay;
+                console.log("Wrong letter display: " + wrongLetterDisplay);
+            }
+            displayNumberOfGuesses(numberOfGuesses);
+            if (numberOfGuesses === 0) {
+                losses++;
+                document.getElementById("loss-counter").innerHTML = losses;
+                alert("Sorry, you ran out of guesses.");
+                initializeSettings();
+            } else {
+                answerSoFar += "_ ";
+            }
         }
         document.getElementById("word-blanks").innerHTML = answerSoFar;
         console.log("answerSoFar: " + answerSoFar);
     }
 }
+
