@@ -56,7 +56,7 @@ var answerSoFar = "";
 var wrongLetters = [];
 var wrongLetterDisplay = "";
 var correctLetters = 0;
-var isCorrectLetter = false;
+
 function initializeSettings() {
     numberOfGuesses = 15;
     // initialize each letter value to unselected
@@ -104,35 +104,38 @@ document.onkeyup = function (event) {
     isCorrectLetter = false;
     if (keyCommand in alphabet) {
         answerSoFar = "";
-        if (alphabet[keyCommand.toLowerCase()] === "correct") {
-            answerSoFar += puzzleAnswer.charAt(i).toUpperCase() + " ";
-        } else if (alphabet[keyCommand] === "unselected") {
-            for (var i = 0; i < puzzleAnswer.length; i++) { // update "word-blanks" and "wrong-guesses" IDs in index.html
-                if (puzzleAnswer.charAt(i).toLowerCase() == keyCommand) { // found match in puzzleAnswer
-                    answerSoFar += keyCommand.toUpperCase() + " ";
-                    isCorrectLetter = true;
-                    correctLetters++;
-                    numberOfGuesses--;
-                    alphabet[keyCommand] = "correct";
-                    document.getElementById("word-blanks").innerHTML = answerSoFar;
-                    console.log("answerSoFar: " + answerSoFar);
-                    if (puzzleAnswer.length === correctLetters) {
-                        // if puzzle is solved, output congratulations message, increment wins variable
-                        // display all composer information, and play youtube video in background
-                        wins++;
-                        document.getElementById("win-counter").innerHTML = wins;
-                        document.getElementById("composer-name").innerHTML = composers[randomComposerIndex][1] + ", " + composers[randomComposerIndex][2]; // displays last name, comma, and first name
-                        document.getElementById("years-lived").innerHTML = composers[randomComposerIndex][3]; // composers[randomComposerIndex][3] is years lived
-                        document.getElementById("piece").innerHTML = composers[randomComposerIndex][4]; // composers[randomComposerIndex][4] is title of piece
-                        document.getElementById("performer").innerHTML = composers[randomComposerIndex][5]; //  composers[randomComposerIndex][5] is performer
-                        document.getElementById("video-player").innerHTML = composers[randomComposerIndex][6]; // composers[randomComposerIndex][6] is the iframe tag to the video
-                        console.log("Youtube iframe link: " + composers[randomComposerIndex][6]);
-                        alert("You win!");
-                        initializeSettings();
-                    }
+
+    } else if (alphabet[keyCommand] === "unselected") {
+        for (var i = 0; i < puzzleAnswer.length; i++) { // update "word-blanks" and "wrong-guesses" IDs in index.html
+            if (alphabet[keyCommand.toLowerCase()] === "correct") {
+                answerSoFar += puzzleAnswer.charAt(i).toUpperCase() + " ";
+            } else if (puzzleAnswer.charAt(i).toLowerCase() == keyCommand) { // found match in puzzleAnswer
+                answerSoFar += keyCommand.toUpperCase() + " ";
+                correctLetters++;
+                numberOfGuesses--;
+                document.getElementById("guesses-left").innerHTML = numberOfGuesses;
+                alphabet[keyCommand] = "correct";
+                console.log("answerSoFar: " + answerSoFar);
+                if (puzzleAnswer.length === correctLetters) {
+                    // if puzzle is solved, output congratulations message, increment wins variable
+                    // display all composer information, and play youtube video in background
+                    wins++;
+                    document.getElementById("win-counter").innerHTML = wins;
+                    document.getElementById("composer-name").innerHTML = composers[randomComposerIndex][1] + ", " + composers[randomComposerIndex][2]; // displays last name, comma, and first name
+                    document.getElementById("years-lived").innerHTML = composers[randomComposerIndex][3]; // composers[randomComposerIndex][3] is years lived
+                    document.getElementById("piece").innerHTML = composers[randomComposerIndex][4]; // composers[randomComposerIndex][4] is title of piece
+                    document.getElementById("performer").innerHTML = composers[randomComposerIndex][5]; //  composers[randomComposerIndex][5] is performer
+                    document.getElementById("video-player").innerHTML = composers[randomComposerIndex][6]; // composers[randomComposerIndex][6] is the iframe tag to the video
+                    console.log("Youtube iframe link: " + composers[randomComposerIndex][6]);
+                    alert("You win!");
+                    initializeSettings();
+                }
+                else {
+                    answerSoFar += "_ ";
                 }
             }
-        } else if (isCorrectLetter === false && i === puzzleAnswer.length - 1) { //answer is wrong for the first time
+            document.getElementById("word-blanks").innerHTML = answerSoFar;
+        } else if (alphabet[keyCommand] === "unselected" && i === puzzleAnswer.length - 1) { //answer is wrong for the first time
             alphabet[keyCommand] = "wrong";
             wrongLetters.push(keyCommand.toUpperCase());
             numberOfGuesses--;
@@ -152,8 +155,6 @@ document.onkeyup = function (event) {
                 document.getElementById("loss-counter").innerHTML = losses;
                 alert("Sorry, you ran out of guesses.");
                 initializeSettings();
-            } else {
-                answerSoFar += "_ ";
             }
         }
         document.getElementById("word-blanks").innerHTML = answerSoFar;
