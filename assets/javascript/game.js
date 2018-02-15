@@ -55,7 +55,7 @@ var answerSoFar = "";
 var wrongLetters = [];
 var wrongLetterDisplay = "";
 var correctLetters = 0;
-
+var isCorrectLetter = false;
 function initializeSettings() {
     numberOfGuesses = 15;
     // initialize each letter value to unselected
@@ -111,13 +111,18 @@ initializeSettings();
 document.onkeyup = function (event) {
     var keyCommand = event.key;
     console.log("keyCommand: " + keyCommand);
+    isCorrectLetter = false;
     if (keyCommand in alphabet) {
         answerSoFar = "";
-        for (var i = 0; i < puzzleAnswer.length; i++) { // update "word-blanks" and "wrong-guesses" IDs in index.html
-            if (alphabet[keyCommand] === "unselected") {
+        if (alphabet[keyCommand.toLowerCase()] === "correct") {
+            answerSoFar += puzzleAnswer.charAt(i).toUpperCase() + " ";
+        } else if (alphabet[keyCommand] === "unselected") {
+            for (var i = 0; i < puzzleAnswer.length; i++) { // update "word-blanks" and "wrong-guesses" IDs in index.html
                 if (puzzleAnswer.charAt(i).toLowerCase() == keyCommand) { // found match in puzzleAnswer
                     answerSoFar += keyCommand.toUpperCase() + " ";
+                    isCorrectLetter = true;
                     correctLetters++;
+                    numberOfGuesses--;
                     alphabet[keyCommand] = "correct";
                     document.getElementById("word-blanks").innerHTML = answerSoFar;
                     console.log("answerSoFar: " + answerSoFar);
@@ -134,7 +139,7 @@ document.onkeyup = function (event) {
                         console.log("Youtube iframe link: " + composers[randomComposerIndex][6]);
                         alert("You win!");
                         playAgain();
-                    } else if (alphabet[keyCommand] === "unselected" && i === puzzleAnswer.length - 1) { //answer is wrong for the first time
+                    } else if (isCorrectLetter === false && i === puzzleAnswer.length - 1) { //answer is wrong for the first time
                         alphabet[keyCommand] = "wrong";
                         wrongLetters.push(keyCommand.toUpperCase());
                         numberOfGuesses--;
@@ -156,16 +161,14 @@ document.onkeyup = function (event) {
                             playAgain();
                         } else {
                             answerSoFar += "_ ";
-                            console.log("answerSoFar: " + answerSoFar);
                         }
                     }
                 }
-            } else if (alphabet[keyCommand]) === "correct") {
-                answerSoFar += puzzleAnswer.charAt(i).toUpperCase() + " ";
-            } else {
-                answerSoFar += "_ ";
             }
+        } else {
+            answerSoFar += "_ ";
         }
         document.getElementById("word-blanks").innerHTML = answerSoFar;
+        console.log("answerSoFar: " + answerSoFar);
     }
 }
