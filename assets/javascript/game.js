@@ -69,8 +69,8 @@ function initializeSettings() {
     randomComposerIndex = Math.floor(Math.random() * composers.length);
     // assign random composer as the hangman answer
     puzzleAnswer = composers[randomComposerIndex][1].toUpperCase(); // makes answer uppercase; index [][1] is the composer's last name
-    console.log("randomComposerIndex: " + randomComposerIndex);
-    console.log("puzzleAnswer: " + puzzleAnswer);
+    // console.log("randomComposerIndex: " + randomComposerIndex);
+    // console.log("puzzleAnswer: " + puzzleAnswer);
 
 
     for (var letter in alphabet) {
@@ -95,12 +95,12 @@ function initializeSettings() {
 
 function displayNumberOfGuesses(number) {
     document.getElementById("guesses-left").innerHTML = number;
-    console.log("numberOfGuesses: " + number);
+    // console.log("numberOfGuesses: " + number);
 }
 
 function displayAnswerSoFar(answerSoFar) {
     document.getElementById("word-blanks").innerHTML = answerSoFar;
-    console.log("answerSoFar: " + answerSoFar);
+    // console.log("answerSoFar: " + answerSoFar);
 }
 
 function displayWrongLetters(wrongLetters) {
@@ -113,14 +113,14 @@ function displayWrongLetters(wrongLetters) {
         }
     }
     document.getElementById("wrong-guesses").innerHTML = wrongLetterDisplay;
-    console.log("Wrong letter display: " + wrongLetterDisplay);
+    // console.log("Wrong letter display: " + wrongLetterDisplay);
 }
 
 initializeSettings();
 
 document.onkeyup = function (event) {
     var keyCommand = event.key;
-    console.log("keyCommand: " + keyCommand);
+    // console.log("keyCommand: " + keyCommand);
     keyCommand = keyCommand.toLowerCase();
     if (keyCommand in alphabet) {
         correctTimesInAnswer = 0;
@@ -143,7 +143,7 @@ document.onkeyup = function (event) {
         if (correctTimesInAnswer > 0) {
             alphabet[keyCommand] = "correct";
             correctLetters += correctTimesInAnswer;
-            console.log("Correct letters: " + correctLetters);
+            // console.log("Correct letters: " + correctLetters);
         }
         displayAnswerSoFar(answerSoFar);
         if (puzzleAnswer.length === correctLetters) {
@@ -157,7 +157,7 @@ document.onkeyup = function (event) {
             document.getElementById("piece").innerHTML = composers[randomComposerIndex][4]; // composers[randomComposerIndex][4] is title of piece
             document.getElementById("performer").innerHTML = composers[randomComposerIndex][5]; //  composers[randomComposerIndex][5] is performer
             document.getElementById("video-player").innerHTML = composers[randomComposerIndex][6]; // composers[randomComposerIndex][6] is the iframe tag to the video
-            console.log("Youtube iframe link: " + composers[randomComposerIndex][6]);
+            // console.log("Youtube iframe link: " + composers[randomComposerIndex][6]);
             alert("You won! The answer is " + composers[randomComposerIndex][1] + "!");
             initializeSettings();
         }
