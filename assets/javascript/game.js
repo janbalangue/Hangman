@@ -126,11 +126,9 @@ document.onkeyup = function (event) {
         for (var i = 0; i < puzzleAnswer.length; i++) { // update "word-blanks" and "wrong-guesses" IDs in index.html
             if (alphabet[puzzleAnswer.charAt(i).toLowerCase()] === "correct" && puzzleAnswer.charAt(i).toLowerCase() === keyCommand) {
                 answerSoFar += puzzleAnswer.charAt(i).toUpperCase() + "  ";
-                correctTimesInAnswer++;
             } else if (puzzleAnswer.charAt(i).toLowerCase() === keyCommand && alphabet[keyCommand] === "unselected") { // found match in puzzleAnswer
                 answerSoFar += puzzleAnswer.charAt(i).toUpperCase() + " ";
                 correctTimesInAnswer++;
-                alphabet[keyCommand] = "correct";
                 numberOfGuesses--; // only decrement numberOfGuesses the first time a letter is correct
                 displayNumberOfGuesses(numberOfGuesses);
             } else if (alphabet[puzzleAnswer.charAt(i).toLowerCase()] === "correct") {
@@ -139,8 +137,11 @@ document.onkeyup = function (event) {
                 answerSoFar += "_ ";
             }
         }
-        correctLetters += correctTimesInAnswer;
-        console.log("Correct letters: " + correctLetters);
+        if (correctTimesInAnswer > 0) {
+            alphabet[keyCommand] = "correct";
+            correctLetters += correctTimesInAnswer;
+            console.log("Correct letters: " + correctLetters);
+        }
         displayAnswerSoFar(answerSoFar);
         if (puzzleAnswer.length === correctLetters) {
             // if puzzle is solved, output congratulations message, increment wins variable
