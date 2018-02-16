@@ -109,7 +109,7 @@ function displayWrongLetters(wrongLetters) {
         // if letter is wrong, output it in HTML document along with other wrong letters in order of entry
         for (var i = 0; i < wrongLetters.length; i++) {
             wrongLetterDisplay += wrongLetters[i] + " ";
-            console.log("wrongLetterDisplay: " + wrongLetterDisplay);
+            // console.log("wrongLetterDisplay: " + wrongLetterDisplay);
         }
     }
     document.getElementById("wrong-guesses").innerHTML = wrongLetterDisplay;
