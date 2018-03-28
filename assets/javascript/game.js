@@ -4,7 +4,7 @@ var composers = [
         lastName: "Schubert",
         firstName: "Franz",
         yearsLived: "1797-1828",
-        piece: "Ave Maria"
+        piece: "Ave Maria",
         performer: "Jessye Norman",
         youTubeLink: '<iframe width="560" height="315" src="https://www.youtube.com/embed/do5ZmQQM8AE?autoplay=1&rel=0&amp;controls=0&amp;showinfo=0&amp;start=6" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>'
     }
@@ -160,9 +160,7 @@ function initializeSettings() {
 
     randomComposerIndex = Math.floor(Math.random() * composers.length);
     // assign random composer as the hangman answer
-    puzzleAnswer = composers[randomComposerIndex].lastName.toUpperCase(); // makes answer uppercase; index [][1] is the composer's last name
-    // console.log("randomComposerIndex: " + randomComposerIndex);
-    // console.log("puzzleAnswer: " + puzzleAnswer);
+    puzzleAnswer = composers[randomComposerIndex].lastName.toUpperCase(); 
 
 
     for (var letter in alphabet) {
@@ -187,12 +185,12 @@ function initializeSettings() {
 
 function displayNumberOfGuesses(number) {
     $("#guesses-left").html(number);
-    // console.log("numberOfGuesses: " + number);
+
 }
 
 function displayAnswerSoFar(answerSoFar) {
     $("#word-blanks").html(answerSoFar);
-    // console.log("answerSoFar: " + answerSoFar);
+
 }
 
 function displayWrongLetters(wrongLetters) {
@@ -244,11 +242,11 @@ document.onkeyup = function (event) {
             wins++;
             displayAnswerSoFar(answerSoFar);
             $("#win-counter").html(wins);
-            $("#composer-name").html(composers[randomComposerIndex].lastName + ", " + composers[randomComposerIndex].firstName); // displays last name and first name
-            $("#years-lived").html(composers[randomComposerIndex].yearsLived); // composers[randomComposerIndex][3] is years lived
-            $("#piece").html(composers[randomComposerIndex].piece); // composers[randomComposerIndex][4] is title of piece
-            $("#performer").html(composers[randomComposerIndex].performer); //  composers[randomComposerIndex][5] is performer
-            $("#video-player").html(composers[randomComposerIndex].youTubeLink); // composers[randomComposerIndex][6] is the iframe tag to the video
+            $("#composer-name").html(composers[randomComposerIndex].lastName + ", " + composers[randomComposerIndex].firstName); 
+            $("#years-lived").html(composers[randomComposerIndex].yearsLived); ]lived
+            $("#piece").html(composers[randomComposerIndex].piece); 
+            $("#performer").html(composers[randomComposerIndex].performer); 
+            $("#video-player").html(composers[randomComposerIndex].youTubeLink); \
             alert("You won! The answer is " + composers[randomComposerIndex].lastName + "!");
             initializeSettings();
         }
