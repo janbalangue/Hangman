@@ -7,7 +7,7 @@ var composers = [
         piece: "Ave Maria",
         performer: "Jessye Norman",
         youTubeLink: '<iframe width="560" height="315" src="https://www.youtube.com/embed/do5ZmQQM8AE?autoplay=1&rel=0&amp;controls=0&amp;showinfo=0&amp;start=6" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>'
-    }
+    },
     {
         lastName: "Rachmaninoff",
         firstName: "Sergei",
