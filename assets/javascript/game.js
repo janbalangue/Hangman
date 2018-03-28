@@ -5,7 +5,7 @@ var composers = [
         firstName: "Franz",
         yearsLived: "1797-1828",
         piece: "Ave Maria",
-        performer: "Jessye Norman",
+        performer: "Jessye Norman - Soprano",
         youTubeLink: '<iframe width="560" height="315" src="https://www.youtube.com/embed/do5ZmQQM8AE?autoplay=1&rel=0&amp;controls=0&amp;showinfo=0&amp;start=6" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>'
     },
     {
