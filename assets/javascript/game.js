@@ -4,7 +4,7 @@ var composers = [
         lastName: "Sibelius",
         firstName: "Jean",
         yearsLived: "1865-1957",
-        piece: "Violin Concerto, Op. 47",
+        piece: "Violin Concerto in D Minor, Op. 47",
         performer: "BBC Symphony Orchestra: Sir Thomas Beecham - Conductor, Jascha Heifetz - Violin",
         youTubeLink: '<iframe width="560" height="315" src="https://www.youtube.com/embed/NgJ58xBBx40?autoplay=1&rel=0&amp;controls=0&amp;showinfo=0&amp;start=11" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>'
     },
