@@ -3,11 +3,11 @@ var composers = [
     {
         lastName: "Part",
         firstName: "Arvo",
-        yearsLived: "",
+        yearsLived: "born 1935",
         piece: "Spiegel im Spiegel",
         performer: "Jurgen Kruse - Piano, Benjamin Hudson - Viola",
         youTubeLink: '<iframe width="560" height="315" src="https://www.youtube.com/embed/TJ6Mzvh3XCc?autoplay=1&rel=0&amp;controls=0&amp;showinfo=0&amp;start=1" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>'
-    }
+    },
     {
         lastName: "Sibelius",
         firstName: "Jean",
@@ -176,7 +176,7 @@ function initializeSettings() {
 
     randomComposerIndex = Math.floor(Math.random() * composers.length);
     // assign random composer as the hangman answer
-    puzzleAnswer = composers[randomComposerIndex].lastName.toUpperCase(); 
+    puzzleAnswer = composers[randomComposerIndex].lastName.toUpperCase();
 
 
     for (var letter in alphabet) {
@@ -258,11 +258,11 @@ document.onkeyup = function (event) {
             wins++;
             displayAnswerSoFar(answerSoFar);
             $("#win-counter").html(wins);
-            $("#composer-name").html(composers[randomComposerIndex].lastName + ", " + composers[randomComposerIndex].firstName); 
+            $("#composer-name").html(composers[randomComposerIndex].lastName + ", " + composers[randomComposerIndex].firstName);
             $("#years-lived").html(composers[randomComposerIndex].yearsLived);
-            $("#piece").html(composers[randomComposerIndex].piece); 
-            $("#performer").html(composers[randomComposerIndex].performer); 
-            $("#video-player").html(composers[randomComposerIndex].youTubeLink); 
+            $("#piece").html(composers[randomComposerIndex].piece);
+            $("#performer").html(composers[randomComposerIndex].performer);
+            $("#video-player").html(composers[randomComposerIndex].youTubeLink);
             alert("You won! The answer is " + composers[randomComposerIndex].lastName + "!");
             initializeSettings();
         }
