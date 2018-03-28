@@ -1,6 +1,14 @@
 
 var composers = [
     {
+        lastName: "Part",
+        firstName: "Arvo",
+        yearsLived: "",
+        piece: "Spiegel im Spiegel",
+        performer: "Jurgen Kruse - Piano, Benjamin Hudson - Viola",
+        youTubeLink: '<iframe width="560" height="315" src="https://www.youtube.com/embed/TJ6Mzvh3XCc?autoplay=1&rel=0&amp;controls=0&amp;showinfo=0&amp;start=1" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>'
+    }
+    {
         lastName: "Sibelius",
         firstName: "Jean",
         yearsLived: "1865-1957",
