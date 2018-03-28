@@ -1,6 +1,14 @@
 
 var composers = [
     {
+        lastName: "Schubert",
+        firstName: "Franz",
+        yearsLived: "1797-1828",
+        piece: "Ave Maria"
+        performer: "Jessye Norman",
+        youTubeLink: '<iframe width="560" height="315" src="https://www.youtube.com/embed/do5ZmQQM8AE?autoplay=1&rel=0&amp;controls=0&amp;showinfo=0&amp;start=6" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>'
+    }
+    {
         lastName: "Rachmaninoff",
         firstName: "Sergei",
         yearsLived: "1873-1943",
