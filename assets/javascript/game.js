@@ -246,7 +246,7 @@ document.onkeyup = function (event) {
             $("#years-lived").html(composers[randomComposerIndex].yearsLived);
             $("#piece").html(composers[randomComposerIndex].piece); 
             $("#performer").html(composers[randomComposerIndex].performer); 
-            $("#video-player").html(composers[randomComposerIndex].youTubeLink); \
+            $("#video-player").html(composers[randomComposerIndex].youTubeLink); 
             alert("You won! The answer is " + composers[randomComposerIndex].lastName + "!");
             initializeSettings();
         }
