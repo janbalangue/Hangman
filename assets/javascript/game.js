@@ -243,7 +243,7 @@ document.onkeyup = function (event) {
             displayAnswerSoFar(answerSoFar);
             $("#win-counter").html(wins);
             $("#composer-name").html(composers[randomComposerIndex].lastName + ", " + composers[randomComposerIndex].firstName); 
-            $("#years-lived").html(composers[randomComposerIndex].yearsLived); ]lived
+            $("#years-lived").html(composers[randomComposerIndex].yearsLived);
             $("#piece").html(composers[randomComposerIndex].piece); 
             $("#performer").html(composers[randomComposerIndex].performer); 
             $("#video-player").html(composers[randomComposerIndex].youTubeLink); \
