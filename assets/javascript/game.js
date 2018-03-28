@@ -145,7 +145,7 @@ var correctLetters = 0;
 var correctTimesInAnswer = 0;
 
 function initializeSettings() {
-    numberOfGuesses = 15;
+    numberOfGuesses = 12;
     // initialize each letter value to unselected
     displayNumberOfGuesses(numberOfGuesses);
     correctLetters = 0;
