@@ -18,8 +18,8 @@ var composers = [
         youTubeLink: '<iframe width="560" height="315" src="https://www.youtube.com/embed/HrbZDgsZUBw?autoplay=1&rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>'
     },
     {
-        firstName: "Holst",
-        lastName: "Gustav",
+        lastName: "Holst",
+        firstName: "Gustav",
         yearsLived: "1874-1934",
         piece: "The Planets I. Mars, Bringer of War",
         performer: "Royal Philharmonic Orchestra: Sir Charles Groves - Conductor",
