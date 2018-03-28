@@ -5,7 +5,7 @@ var composers = [
         firstName: "Gyorgy",
         yearsLived: "1923-2006",
         piece: "Lux Aeterna",
-        performer: "A Capella Amsterdam: Daniel Reuss - Conductor, Susanne Van Els - Viola",
+        performer: "A Capella Amsterdam: Daniel Reuss - Conductor",
         youTubeLink: '<iframe width="560" height="315" src="https://www.youtube.com/embed/-iVYu5lyX5M?autoplay=1&rel=0&amp;controls=0&amp;showinfo=0&amp;start=1" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>'
     },
     {
