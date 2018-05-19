@@ -5,3 +5,5 @@ Use your keyboard to enter the missing letters in the puzzle. Wrong letters will
 See what happens when you get the correct answer and then *click the popup*! Good luck!
 
 Play the game: https://computeruser88.github.io/Hangman/
+
+Technologies used: HTML5, CSS3, JavaScript, jQuery, JSON
