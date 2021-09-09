@@ -77,7 +77,7 @@ var alphabet = {
     "y": "unselected",
     "z": "unselected"
 };
-var numberOfGuesses = 0;
+var numberOfGuesses;
 var randomComposerIndex = 0;
 var puzzleAnswer = "";
 var answerSoFar = "";
@@ -85,6 +85,7 @@ var wrongLetters = [];
 var wrongLetterDisplay = "";
 var correctLetters = 0;
 var correctTimesInAnswer = 0;
+var keyCommand;
 
 function initializeSettings() {
     answerSoFar = "";
@@ -120,7 +121,6 @@ function initializeSettings() {
 
 function displayNumberOfGuesses(number) {
     $("#guesses-left").html(number);
-
 }
 
 function displayAnswerSoFar(keyCommand) {
@@ -147,6 +147,8 @@ function displayAnswerSoFar(keyCommand) {
         // console.log("Correct letters: " + correctLetters);
     }
     $("#word-blanks").html(answerSoFar);
+    displayWrongLetters(wrongLetters);
+    checkIfWin(correctLetters);
 }
 
 function displayWrongLetters(wrongLetters) {
@@ -165,20 +167,30 @@ function displayWrongLetters(wrongLetters) {
 initializeSettings();
 
 function processKey(event) {
-    var keyCommand = event.key;
+    keyCommand = event.key;
     // console.log("keyCommand: " + keyCommand);
     keyCommand = keyCommand.toLowerCase();
-    document.getElementById("letter-reader").value = "";
     if (keyCommand in alphabet) {
-        $("#last-letter").html(keyCommand.toUpperCase());
-        $("#letter-reader").html("");
         displayAnswerSoFar(keyCommand);
-        checkIfWin(correctLetters);
+        document.getElementById("letter-reader").innerHTML = "";
     }
 }
 
 function checkIfWin(correctLetters) {
-    if (puzzleAnswer.length === correctLetters) {
+    if ((alphabet[keyCommand] === "unselected" && correctTimesInAnswer === 0)|| correctTimesInAnswer === 0) {
+        alphabet[keyCommand] = "wrong";
+        wrongLetters.push(keyCommand.toUpperCase());
+        displayWrongLetters(wrongLetters);
+        numberOfGuesses--;
+        if (numberOfGuesses > 0) {
+            displayNumberOfGuesses(numberOfGuesses);
+        } else {
+            losses++;
+            $("#loss-counter").html(losses);
+            alert("You ran out of guesses. The answer is " + composers[randomComposerIndex].lastName + ".");
+            initializeSettings();
+        }
+    } else if (puzzleAnswer.length === correctLetters) {
         // if puzzle is solved, output congratulations message, increment wins variable
         // display all composer information, and play youtube video in background
         wins++;
@@ -190,20 +202,7 @@ function checkIfWin(correctLetters) {
         $("#video-player").html(composers[randomComposerIndex].youTubeLink);
         alert("You won! The answer is " + composers[randomComposerIndex].lastName + "!");
         initializeSettings();
-    } else if (alphabet[keyCommand] === "unselected" && correctTimesInAnswer === 0) { // alphabet[keyCommand] which is still unselected must be wrong
-        alphabet[keyCommand] = "wrong";
-        wrongLetters.push(keyCommand.toUpperCase());
-        displayWrongLetters(wrongLetters);
-        numberOfGuesses--;
-        displayNumberOfGuesses(numberOfGuesses);
-        document.getElementById("letter-reader").value = "";             
-    } else if (numberOfGuesses === 0) { // test if game is over
-        losses++;
-        $("#loss-counter").html(losses);
-        document.getElementById("letter-reader").value = "";
-        alert("You ran out of guesses. The answer is " + composers[randomComposerIndex].lastName + ".");
-        initializeSettings();
-    }
+    } 
 }
 
 
