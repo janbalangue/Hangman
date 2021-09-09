@@ -6,7 +6,7 @@ var composers = [
         yearsLived: "1865-1957",
         piece: "Violin Concerto in D Minor, Op. 47",
         performer: "Gothenburg Symphony Orchestra: Maestro Kent Nagano, Ray Chen - Violin",
-        youTubeLink: '<iframe width="560" height="315" src="https://www.youtube.com/embed/3u-unvYedx8?&autoplay=1&controls=1&disablekb=1&fs=0&modestbranding=1&rel=0&playsinline=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+        youTubeLink: '<iframe width="560" height="315" src="https://www.youtube.com/embed/3u-unvYedx8?&autoplay=1&controls=1&disablekb=1&fs=0&modestbranding=1&rel=0&playsinline=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="video"></iframe>'
     },
     {
         lastName: "Schubert",
@@ -14,7 +14,7 @@ var composers = [
         yearsLived: "1797-1828",
         piece: "Ave Maria",
         performer: "Aida Garifullina - Soprano",
-        youTubeLink: '<iframe width="560" height="315" src="https://www.youtube.com/embed/ja5hQH9USIU?&autoplay=1&controls=1&disablekb=1&fs=0&modestbranding=1&rel=0&playsinline=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+        youTubeLink: '<iframe width="560" height="315" src="https://www.youtube.com/embed/ja5hQH9USIU?&autoplay=1&controls=1&disablekb=1&fs=0&modestbranding=1&rel=0&playsinline=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="video"></iframe>'
     },
     {
         lastName: "Beethoven",
@@ -22,7 +22,7 @@ var composers = [
         yearsLived: "1770-1827",
         piece: "Sonata Pathetique, 2nd Movement",
         performer: "Tiffany Poon - Piano",
-        youTubeLink: '<iframe width="560" height="315" src="https://www.youtube.com/embed/AhxFNFc8zP8?&autoplay=1&controls=1&disablekb=1&fs=0&modestbranding=1&rel=0&playsinline=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+        youTubeLink: '<iframe width="560" height="315" src="https://www.youtube.com/embed/AhxFNFc8zP8?&autoplay=1&controls=1&disablekb=1&fs=0&modestbranding=1&rel=0&playsinline=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="video"></iframe>'
     },
     {
         lastName: "Holst",
@@ -30,7 +30,7 @@ var composers = [
         yearsLived: "1874-1934",
         piece: "The Planets I. Mars, Bringer of War",
         performer: "BBC Symphony Orchestra: Susanna Mälkki - Conductor",
-        youTubeLink: '<iframe width="560" height="315" src="https://www.youtube.com/embed/cXOanvv4plU?&autoplay=1&controls=1&disablekb=1&fs=0&modestbranding=1&rel=0&playsinline=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+        youTubeLink: '<iframe width="560" height="315" src="https://www.youtube.com/embed/cXOanvv4plU?&autoplay=1&controls=1&disablekb=1&fs=0&modestbranding=1&rel=0&playsinline=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="video"></iframe>'
     },
     {
         lastName: "Massenet",
@@ -38,7 +38,7 @@ var composers = [
         yearsLived: "1842-1912",
         piece: "Meditation from Thais",
         performer: "Violin - Rusanda Panfili, Piano - Donka Angatscheva",
-        youTubeLink: '<iframe width="560" height="315" src="https://www.youtube.com/embed/7QtGOWemQhY?&autoplay=1&controls=1&disablekb=1&fs=0&modestbranding=1&rel=0&playsinline=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+        youTubeLink: '<iframe width="560" height="315" src="https://www.youtube.com/embed/7QtGOWemQhY?&autoplay=1&controls=1&disablekb=1&fs=0&modestbranding=1&rel=0&playsinline=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="video"></iframe>'
     }
 ];
 
@@ -177,7 +177,7 @@ function processKey(event) {
 }
 
 function checkIfWin(correctLetters) {
-    if ((alphabet[keyCommand] === "unselected" && correctTimesInAnswer === 0)|| correctTimesInAnswer === 0) {
+    if ((alphabet[keyCommand] === "unselected" && correctTimesInAnswer === 0)|| (alphabet[keyCommand] === "wrong" && correctTimesInAnswer === 0)) {
         alphabet[keyCommand] = "wrong";
         wrongLetters.push(keyCommand.toUpperCase());
         displayWrongLetters(wrongLetters);
