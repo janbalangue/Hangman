@@ -24,7 +24,7 @@
       <div class="container">
         <h1>Hangman - Classical Edition</h1>
         <h2 id="status-message-1">Guess the composer!</h2>
-        <small id="status-message-2">Click any letter to begin...</small>
+        <small id="status-message-2">Click any letter to begin...</small>˜˙
       </div>
     </div>
     <div class="row">
@@ -65,7 +65,20 @@
           </div>
         </div>
 
+
+
         <!-- Second Panel: Holds the list of Wrong User Guesses. -->
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <!-- This span section called userGuesses is where we will be dumping the wrong guesses.
+						Pay particular attention to the id called ****userGuesses***. We'll be referencing this in the JavaScript. -->
+            <strong>Last letter pressed: </strong>
+            <span id="last-letter"></span>
+            <input type="text" id="letter-reader" autofocus class="visually-hidden" onkeyup="processKey(event)">
+          </div>
+        </div>
+
+        <!-- Third Panel: Holds the list of Wrong User Guesses. -->
         <div class="panel panel-default">
           <div class="panel-body">
 
@@ -76,7 +89,7 @@
           </div>
         </div>
 
-        <!-- Third Panel: Holds the Number of Wrong Guesses -->
+        <!-- Fourth Panel: Holds the Number of Wrong Guesses -->
         <div class="panel panel-default">
           <div class="panel-body">
 

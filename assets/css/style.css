@@ -9,3 +9,16 @@ body {
     text-shadow: 2px 2px 4px #000000;
     font-size: 32px;
 }
+#last-letter {
+    font-size: 20px;
+}
+#win-lose-message {
+    font-weight: bold;
+}
+.visually-hidden { 
+    position: absolute; 
+    overflow: hidden; 
+    clip: rect(0 0 0 0); 
+    height: 1px; width: 1px; 
+    margin: -1px; padding: 0; border: 0; 
+}
